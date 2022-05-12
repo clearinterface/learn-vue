@@ -8,7 +8,7 @@
       id="new-todo-input"
       name="new-todo"
       autocomplete="off"
-      v-model="label"
+      v-model.lazy.trim="label"
     />
     <button type="submit">
       Add
@@ -23,9 +23,11 @@
    methods: {
        onSubmit() {
 
-            console.log('Label value: ', this.label);
-            //console.log('this is all a test');
-
+            if(this.label === "") {
+                return;
+            }
+            this.$emit('todo-added', this.label);
+            this.label = "";
        }
    },
     data() {
